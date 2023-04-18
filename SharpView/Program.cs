@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security;
 
 namespace SharpView
 {
@@ -18,8 +19,8 @@ namespace SharpView
         {
             if (args.Length == 0)
             {
-                Logger.Write_Output("Ex: SharpView.exe Method-Name -Switch -String domain -Array domain,user -Enum ResetPassword -IntEnum CREATED_BY_SYSTEM,APP_BASIC -PointEnum ResetPassword,All -Credential admin@domain.local/password");
-                Logger.Write_Output("Execute 'Sharpview.exe <Method-Name> -Help' to get arguments list and expected types");
+                Logger.Write_Output($@"Ex: SharpView.exe Method-Name -Switch -String domain -Array domain,user -Enum ResetPassword -IntEnum CREATED_BY_SYSTEM,APP_BASIC -PointEnum ResetPassword,All -Credential admin@domain.local/password");
+                Logger.Write_Output($@"Execute 'Sharpview.exe <Method-Name> -Help' to get arguments list and expected types");
                 return;
             }
             try
@@ -28,7 +29,8 @@ namespace SharpView
             }
             catch (Exception e)
             {
-                Console.WriteLine("An error occurred: '{0}'", e);
+                Logger.Write_Warning($@"An errror occured : {e.Message}");
+
             }
         }
 
@@ -416,34 +418,35 @@ namespace SharpView
                     methodName = "Get_NetGPOGroup";
                     break;
                 default:
-                    Console.WriteLine("No Valid Method entered");
-                    Environment.Exit(0);
-                    break;
+                    Logger.Write_Warning($@"Invalid method entered");
+                    return;
             }
 
             var method = typeof(PowerView).GetMethod(methodName);
             if (method == null)
             {
-                Logger.Write_Warning($@"There is no method does match with '{methodName}'");
+                Logger.Write_Warning($@"Invalid method '{methodName}'");
                 return;
             }
             if(args.Length > 1 && (args[1].ToLower() == "-help" || args[1].ToLower() == "help"))
             {
                 Logger.Write_Output(Environment.NewLine + GetMethodHelp(method));
-                Environment.Exit(0);
+                return;
             }
+
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters == null || parameters.Length != 1)
             {
-                Logger.Write_Warning("The method has no parameter");
+                Logger.Write_Warning($@"Method has no parameters");
                 return;
             }
             Type paramType = Type.GetType(parameters[0].ParameterType.FullName);
             if (paramType == null)
             {
-                Logger.Write_Warning($@"There is no type for '{parameters[0].ParameterType.FullName}'");
+                Logger.Write_Warning($@"No type for '{parameters[0].ParameterType.FullName}'");
                 return;
             }
+
             object argObject = Activator.CreateInstance(paramType, false);
             if (argObject != null)
             {
@@ -453,7 +456,10 @@ namespace SharpView
                     if (argName.StartsWith("-"))
                     {
                         argName = argName.TrimStart(new[] { '-' });
-                        PropertyInfo pinfo = paramType.GetProperty(argName);
+                        //PropertyInfo pinfo = paramType.GetProperty(argName);
+                        PropertyInfo pinfo = parameters[0].ParameterType
+                            .GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance)
+                            .FirstOrDefault(p => String.Equals(p.Name, argName, StringComparison.OrdinalIgnoreCase));
                         if (pinfo == null)
                             continue;
                         i++;
@@ -467,6 +473,13 @@ namespace SharpView
                                 if (pinfo.PropertyType.FullName == "System.Boolean")
                                     strValue = "true";
                             }
+
+                            if (pinfo.PropertyType.FullName == "System.Security.SecureString")
+                            {
+                                pinfo.SetValue(argObject, ConvertToSecureString(strValue));
+                                continue;
+                            }
+
                             TypeConverter tc = TypeDescriptor.GetConverter(pinfo.PropertyType);
                             if (tc is BooleanConverter)
                             {
@@ -491,8 +504,23 @@ namespace SharpView
                 }
             }
             // Leaving out try catch block to see errors for now
+
             var ret = method.Invoke(null, new[] { argObject });
             ObjectDumper.Write(ret);
+        }
+
+        static SecureString ConvertToSecureString(string password)
+        {
+            if (password == null)
+                throw new ArgumentNullException("password");
+
+            var securePassword = new SecureString();
+
+            foreach (char c in password)
+                securePassword.AppendChar(c);
+
+            securePassword.MakeReadOnly();
+            return securePassword;
         }
 
         static string GetMethodHelp(MethodInfo method)

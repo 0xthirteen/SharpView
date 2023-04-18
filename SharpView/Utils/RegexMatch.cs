@@ -1,5 +1,4 @@
-﻿using PCRE;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,9 @@ namespace SharpView.Utils
         #region Public Methods
         public static bool IsMatch(string pattern, string text)
         {
-            return new PcreRegex(pattern, PcreOptions.IgnoreCase).Match(text).Success;
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match match = regex.Match(text);
+            return match.Success;
         }
 
         public static bool IsRegexMatch(this string text, string pattern)
@@ -32,10 +33,12 @@ namespace SharpView.Utils
             }
             return matches;
         }
-        
-        public static IPcreGroupList GetRegexGroups(this string text, string pattern)
+
+        public static GroupCollection GetRegexGroups(this string text, string pattern)
         {
-            return new PcreRegex(pattern, PcreOptions.IgnoreCase).Match(text).Groups;
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match match = regex.Match(text);
+            return match.Groups;
         }
 
         public static bool RegexContains(this string[] values, string pattern)

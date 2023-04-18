@@ -393,7 +393,7 @@ namespace SharpView
                         }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Convert-LDAPProperty] error: {e}");
+                            Logger.Write_Verbose($@"[Convert-LDAPProperty] error: {e.Message}");
                             ObjectProperties.others.Add(propName, Prop[0]);
                         }
                     }
@@ -441,7 +441,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($"[Get-Domain] The specified domain '{TargetDomain}' does not exist, could not be contacted, there isn't an existing trust, or the specified credentials are invalid: {e}");
+                    Logger.Write_Verbose($"[Get-Domain] The specified domain '{TargetDomain}' does not exist, could not be contacted, there isn't an existing trust, or the specified credentials are invalid: {e.Message}");
                 }
             }
             else if (args.Domain.IsNotNullOrEmpty())
@@ -453,7 +453,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($"[Get-Domain] The specified domain '{args.Domain}' does not exist, could not be contacted, or there isn't an existing trust : {e}");
+                    Logger.Write_Verbose($"[Get-Domain] The specified domain '{args.Domain}' does not exist, could not be contacted, or there isn't an existing trust : {e.Message}");
                 }
             }
             else
@@ -464,7 +464,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($"[Get-Domain] Error retrieving the current domain: {e}");
+                    Logger.Write_Verbose($"[Get-Domain] Error retrieving the current domain: {e.Message}");
                 }
             }
             return null;
@@ -657,7 +657,7 @@ namespace SharpView
                         try { Results.Dispose(); }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-DomainComputer] Error disposing of the Results object: {e}");
+                            Logger.Write_Verbose($@"[Get-DomainComputer] Error disposing of the Results object: {e.Message}");
                         }
                     }
                 }
@@ -867,7 +867,7 @@ namespace SharpView
                         }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Convert-ADName] Error initializing translation for '{args.Identity}' using alternate credentials : {e}");
+                            Logger.Write_Verbose($@"[Convert-ADName] Error initializing translation for '{args.Identity}' using alternate credentials : {e.Message}");
                         }
                     }
                     else
@@ -878,7 +878,7 @@ namespace SharpView
                         }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Convert-ADName] Error initializing translation for '{args.Identity}' : {e}");
+                            Logger.Write_Verbose($@"[Convert-ADName] Error initializing translation for '{args.Identity}' : {e.Message}");
                         }
                     }
 
@@ -893,7 +893,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Verbose($@"[Convert-ADName] Error translating '{TargetIdentity}' : {e})");
+                        Logger.Write_Verbose($@"[Convert-ADName] Error translating '{TargetIdentity}' : {e.Message})");
                     }
                 }
             }
@@ -1049,7 +1049,7 @@ namespace SharpView
                         try { Results.Dispose(); }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-DomainObject] Error disposing of the Results object: {e}");
+                            Logger.Write_Verbose($@"[Get-DomainObject] Error disposing of the Results object: {e.Message}");
                         }
                     }
                 }
@@ -1235,7 +1235,7 @@ namespace SharpView
                         try { Results.Dispose(); }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-DomainUser] Error disposing of the Results object: {e}");
+                            Logger.Write_Verbose($@"[Get-DomainUser] Error disposing of the Results object: {e.Message}");
                         }
                     }
                 }
@@ -1488,7 +1488,7 @@ namespace SharpView
                             try { Results.Dispose(); }
                             catch (Exception e)
                             {
-                                Logger.Write_Verbose($@"[Get-DomainGroup] Error disposing of the Results object: {e}");
+                                Logger.Write_Verbose($@"[Get-DomainGroup] Error disposing of the Results object: {e.Message}");
                             }
                         }
                     }
@@ -1724,14 +1724,14 @@ namespace SharpView
                                     }
                                     catch (Exception e)
                                     {
-                                        Logger.Write_Verbose($@"[Get-DomainDFSShare] Get-DomainDFSShareV1 error in parsing DFS share : {e}");
+                                        Logger.Write_Verbose($@"[Get-DomainDFSShare] Get-DomainDFSShareV1 error in parsing DFS share : {e.Message}");
                                     }
                                 }
                             }
                             try { Results.Dispose(); }
                             catch (Exception e)
                             {
-                                Logger.Write_Verbose($@"[Get-DomainDFSShare] Get-DomainDFSShareV1 error disposing of the Results object: {e}");
+                                Logger.Write_Verbose($@"[Get-DomainDFSShare] Get-DomainDFSShareV1 error disposing of the Results object: {e.Message}");
                             }
                         }
 
@@ -1759,7 +1759,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[Get-DomainDFSShare] Get-DomainDFSShareV1 error : {e}");
+                    Logger.Write_Warning($@"[Get-DomainDFSShare] Get-DomainDFSShareV1 error : {e.Message}");
                 }
                 return DFSShares;
             }
@@ -1806,7 +1806,7 @@ namespace SharpView
                                     }
                                     catch (Exception e)
                                     {
-                                        Logger.Write_Verbose($@"[Get-DomainDFSShare] Get-DomainDFSShareV2 error in parsing target : {e}");
+                                        Logger.Write_Verbose($@"[Get-DomainDFSShare] Get-DomainDFSShareV2 error in parsing target : {e.Message}");
                                     }
                                 }
                             }
@@ -1814,14 +1814,14 @@ namespace SharpView
                         try { Results.Dispose(); }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-DomainDFSShare] Error disposing of the Results object: {e}");
+                            Logger.Write_Verbose($@"[Get-DomainDFSShare] Error disposing of the Results object: {e.Message}");
                         }
                     }
                     DFSSearcher.Dispose();
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[Get-DomainDFSShare] Get-DomainDFSShareV2 error : {e}");
+                    Logger.Write_Warning($@"[Get-DomainDFSShare] Get-DomainDFSShareV2 error : {e.Message}");
                 }
                 return DFSShares;
             }
@@ -2108,7 +2108,7 @@ namespace SharpView
                         }
                         catch (Exception e)
                         {
-                            Logger.Write_Warning($@"[Get-DomainDNSRecord] Error: {e}");
+                            Logger.Write_Warning($@"[Get-DomainDNSRecord] Error: {e.Message}");
                         }
                         if (Outs == null) Outs = new List<DNSRecord>();
                         Outs.Add(Out);
@@ -2415,7 +2415,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[ConvertFrom-SID] Error converting SID '{TargetSid}' : {e}");
+                    Logger.Write_Verbose($@"[ConvertFrom-SID] Error converting SID '{TargetSid}' : {e.Message}");
                 }
             }
             return Results;
@@ -2592,7 +2592,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Warning($@"[Get-DomainGroupMember] Error searching for group with identity '{args.Identity}': {e}");
+                        Logger.Write_Warning($@"[Get-DomainGroupMember] Error searching for group with identity '{args.Identity}': {e.Message}");
                         Members = new List<string>();
                     }
 
@@ -3110,7 +3110,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[Get-Forest] The specified forest '{TargetForest}' does not exist, could not be contacted, there isn't an existing trust, or the specified credentials are invalid: {e}");
+                    Logger.Write_Verbose($@"[Get-Forest] The specified forest '{TargetForest}' does not exist, could not be contacted, there isn't an existing trust, or the specified credentials are invalid: {e.Message}");
                 }
             }
             else if (args.Forest.IsNotNullOrEmpty())
@@ -3122,7 +3122,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[Get-Forest] The specified forest '{args.Forest}' does not exist, could not be contacted, or there isn't an existing trust: {e}");
+                    Logger.Write_Verbose($@"[Get-Forest] The specified forest '{args.Forest}' does not exist, could not be contacted, or there isn't an existing trust: {e.Message}");
                 }
             }
             else
@@ -3772,7 +3772,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Verbose($@"[Get-DomainTrustMapping] Error: {e}");
+                        Logger.Write_Verbose($@"[Get-DomainTrustMapping] Error: {e.Message}");
                     }
                 }
             }
@@ -4030,14 +4030,14 @@ namespace SharpView
                         try { Results.Dispose(); }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error disposing of the Results object: {e}");
+                            Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error disposing of the Results object: {e.Message}");
                         }
                     }
                     SchemaSearcher.Dispose();
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error in building GUID map: {e}");
+                    Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error in building GUID map: {e.Message}");
                 }
             }
 
@@ -4059,14 +4059,14 @@ namespace SharpView
                         try { Results.Dispose(); }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error disposing of the Results object: {e}");
+                            Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error disposing of the Results object: {e.Message}");
                         }
                     }
                     RightsSearcher.Dispose();
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error in building GUID map: {e}");
+                    Logger.Write_Verbose($@"[Get-DomainGUIDMap] Error in building GUID map: {e.Message}");
                 }
             }
             return GUIDs;
@@ -4174,7 +4174,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Verbose($@"[ConvertTo-SID] Error converting {args.Domain}\{name} : {e}");
+                        Logger.Write_Verbose($@"[ConvertTo-SID] Error converting {args.Domain}\{name} : {e.Message}");
                     }
                 }
             }
@@ -4298,7 +4298,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[Get-DomainSPNTicket] Error requesting ticket for SPN '{UserSPN}' from user '{DistinguishedName}' : {e}");
+                    Logger.Write_Warning($@"[Get-DomainSPNTicket] Error requesting ticket for SPN '{UserSPN}' from user '{DistinguishedName}' : {e.Message}");
                 }
                 byte[] TicketByteStream = null;
                 if (Ticket != null)
@@ -4793,7 +4793,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Warning($@"[Set-DomainObject] Error setting/replacing properties for object '{obj.Properties[@"samaccountname"][0]}' : {e}");
+                        Logger.Write_Warning($@"[Set-DomainObject] Error setting/replacing properties for object '{obj.Properties[@"samaccountname"][0]}' : {e.Message}");
                     }
                 }
                 if (args.XOR != null)
@@ -4815,7 +4815,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Warning($@"[Set-DomainObject] Error XOR'ing properties for object '{obj.Properties[@"samaccountname"][0]}' : {e}");
+                        Logger.Write_Warning($@"[Set-DomainObject] Error XOR'ing properties for object '{obj.Properties[@"samaccountname"][0]}' : {e.Message}");
                     }
                 }
                 if (args.Clear != null)
@@ -4832,7 +4832,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Warning($@"[Set-DomainObject] Error clearing properties for object '{obj.Properties[@"samaccountname"][0]}' : {e}");
+                        Logger.Write_Warning($@"[Set-DomainObject] Error clearing properties for object '{obj.Properties[@"samaccountname"][0]}' : {e.Message}");
                     }
                 }
             }
@@ -5023,7 +5023,7 @@ namespace SharpView
             }
             catch (Exception e)
             {
-                Logger.Write_Verbose($@"[Get-GptTmpl] Error parsing $TargetGptTmplPath : {e}");
+                Logger.Write_Verbose($@"[Get-GptTmpl] Error parsing $TargetGptTmplPath : {e.Message}");
             }
             // remove the SYSVOL mappings
             foreach (var key in MappedPaths.Keys)
@@ -5135,7 +5135,7 @@ namespace SharpView
             }
             catch (Exception e)
             {
-                Logger.Write_Verbose($@"[Get-GroupsXML] Error parsing {args.GroupsXMLPath} : {e}");
+                Logger.Write_Verbose($@"[Get-GroupsXML] Error parsing {args.GroupsXMLPath} : {e.Message}");
             }
             // remove the SYSVOL mappings
             foreach (var key in MappedPaths.Keys)
@@ -5461,7 +5461,7 @@ namespace SharpView
                     TargetSIDs.AddRange(sid);
                 }
                 TargetObjectSID = TargetSIDs;
-                if (TargetSIDs != null)
+                if (TargetSIDs == null)
                 {
                     throw new Exception($@"[Get-DomainGPOUserLocalGroupMapping] Unable to retrieve SID for identity '{args.Identity}'");
                 }
@@ -5686,10 +5686,25 @@ namespace SharpView
                         var ous = Get_DomainOU(new Args_Get_DomainOU(CommonArguments) { SearchBase = OUName, LDAPFilter = "(gplink=*)" });
                         foreach (LDAPProperty ou in ous)
                         {
-                            var matches = ou.gplink.GetRegexGroups(@"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}");
-                            foreach (var match in matches)
+                            //var matches = ou.gplink.GetRegexGroups(@"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}");
+                            //foreach (var match in matches)
+                            //{
+                            //    GPOGuids.Add(match.Value);
+                            //}
+                            var pattern = @"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}";
+                            var text = ou.gplink;
+
+                            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                            Match match = regex.Match(text);
+
+                            while (match.Success)
                             {
-                                GPOGuids.Add(match.Value);
+                                GroupCollection groupsCollection = match.Groups;
+                                foreach (Group group in groupsCollection)
+                                {
+                                    GPOGuids.Add(group.Value);
+                                }
+                                match = match.NextMatch();
                             }
                         }
                     }
@@ -5702,10 +5717,25 @@ namespace SharpView
                         var ous = Get_DomainSite(new Args_Get_DomainSite(CommonArguments) { Identity = new[] { ComputerSite }, LDAPFilter = "(gplink=*)" });
                         foreach (LDAPProperty ou in ous)
                         {
-                            var matches = ou.gplink.GetRegexGroups(@"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}");
-                            foreach (var match in matches)
+                            //var matches = ou.gplink.GetRegexGroups(@"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}");
+                            //foreach (var match in matches)
+                            //{
+                            //    GPOGuids.Add(match.Value);
+                            //}
+                            var pattern = @"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}";
+                            var text = ou.gplink;
+
+                            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                            Match match = regex.Match(text);
+
+                            while (match.Success)
                             {
-                                GPOGuids.Add(match.Value);
+                                GroupCollection groupsCollection = match.Groups;
+                                foreach (Group group in groupsCollection)
+                                {
+                                    GPOGuids.Add(group.Value);
+                                }
+                                match = match.NextMatch();
                             }
                         }
                     }
@@ -5938,7 +5968,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Verbose($@"[Get-DomainObjectAcl] Error: {e}");
+                        Logger.Write_Verbose($@"[Get-DomainObjectAcl] Error: {e.Message}");
                     }
                 }
             }
@@ -6061,7 +6091,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Verbose($@"[Add-DomainObjectAcl] Error granting principal {PrincipalObject.distinguishedname} '{args.Rights}' on {TargetObject.Properties["distinguishedname"][0]}: {e}");
+                        Logger.Write_Verbose($@"[Add-DomainObjectAcl] Error granting principal {PrincipalObject.distinguishedname} '{args.Rights}' on {TargetObject.Properties["distinguishedname"][0]}: {e.Message}");
                     }
                 }
             }
@@ -6183,7 +6213,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Verbose($@"[Remove-DomainObjectAcl] Error removing principal {PrincipalObject.distinguishedname} '{args.Rights}' from {TargetObject.Properties["distinguishedname"][0]}: {e}");
+                        Logger.Write_Verbose($@"[Remove-DomainObjectAcl] Error removing principal {PrincipalObject.distinguishedname} '{args.Rights}' from {TargetObject.Properties["distinguishedname"][0]}: {e.Message}");
                     }
                 }
             }
@@ -6238,7 +6268,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[Get-RegLoggedOn] Error opening remote registry on '{Computer}' : {e}");
+                    Logger.Write_Verbose($@"[Get-RegLoggedOn] Error opening remote registry on '{Computer}' : {e.Message}");
                 }
             }
 
@@ -6466,7 +6496,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[Get-WMIProcess] Error enumerating remote processes on '{Computer}', access likely denied: {e}");
+                    Logger.Write_Verbose($@"[Get-WMIProcess] Error enumerating remote processes on '{Computer}', access likely denied: {e.Message}");
                 }
             }
             return UserProcesses;
@@ -6527,7 +6557,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[Get-WMIRegProxy] Error enumerating proxy settings for {Computer} : {e}");
+                    Logger.Write_Warning($@"[Get-WMIRegProxy] Error enumerating proxy settings for {Computer} : {e.Message}");
                 }
             }
 
@@ -6658,13 +6688,13 @@ namespace SharpView
                         }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-WMIRegCachedRDPConnection] Error: {e}");
+                            Logger.Write_Verbose($@"[Get-WMIRegCachedRDPConnection] Error: {e.Message}");
                         }
                     }
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[Get-WMIRegCachedRDPConnection] Error accessing {Computer}, likely insufficient permissions or firewall rules on host: {e}");
+                    Logger.Write_Warning($@"[Get-WMIRegCachedRDPConnection] Error accessing {Computer}, likely insufficient permissions or firewall rules on host: {e.Message}");
                 }
             }
             return FoundConnections;
@@ -6732,13 +6762,13 @@ namespace SharpView
                         }
                         catch (Exception e)
                         {
-                            Logger.Write_Verbose($@"[Get-WMIRegMountedDrive] Error: {e}");
+                            Logger.Write_Verbose($@"[Get-WMIRegMountedDrive] Error: {e.Message}");
                         }
                     }
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[Get-WMIRegMountedDrive] Error accessing {Computer}, likely insufficient permissions or firewall rules on host: {e}");
+                    Logger.Write_Warning($@"[Get-WMIRegMountedDrive] Error accessing {Computer}, likely insufficient permissions or firewall rules on host: {e.Message}");
                 }
             }
             return MountedDrives;
@@ -7206,6 +7236,7 @@ namespace SharpView
                         NativeMethods.NetApiBufferFree(PtrInfo);
 
                         // try to extract out the machine SID by using the -500 account as a reference
+                        // need to add a catch if there is no RID 500 account
                         var MachineSid = (Members.FirstOrDefault(x => (x as LocalGroupMemberAPI).SID.IsRegexMatch(".*-500") || (x as LocalGroupMemberAPI).SID.IsRegexMatch(".*-501")) as LocalGroupMemberAPI).SID;
                         if (MachineSid != null)
                         {
@@ -7288,7 +7319,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Verbose($@"[Get-NetLocalGroupMember] Error for {Computer} : {e}");
+                        Logger.Write_Verbose($@"[Get-NetLocalGroupMember] Error for {Computer} : {e.Message}");
                     }
                 }
             }
@@ -7483,7 +7514,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Verbose($@"[Get-PathAcl] error: {e}");
+                    Logger.Write_Verbose($@"[Get-PathAcl] error: {e.Message}");
                 }
             }
 
@@ -7612,7 +7643,7 @@ namespace SharpView
             }
             catch (Exception e)
             {
-                Logger.Write_Warning($@"[Get-PrincipalContext] Error creating binding for object ('{args.Identity}') context : {e}");
+                Logger.Write_Warning($@"[Get-PrincipalContext] Error creating binding for object ('{args.Identity}') context : {e.Message}");
             }
 
             return null;
@@ -7668,7 +7699,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[New-DomainGroup] Error creating group '{args.SamAccountName}' : {e}");
+                    Logger.Write_Warning($@"[New-DomainGroup] Error creating group '{args.SamAccountName}' : {e.Message}");
                 }
             }
 
@@ -7729,7 +7760,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[New-DomainUser] Error creating user '{args.SamAccountName}' : {e}");
+                    Logger.Write_Warning($@"[New-DomainUser] Error creating user '{args.SamAccountName}' : {e.Message}");
                 }
             }
 
@@ -7757,7 +7788,7 @@ namespace SharpView
                 }
                 catch (Exception e)
                 {
-                    Logger.Write_Warning($@"[Add-DomainGroupMember] Error finding the group identity '{args.Identity}' : {e}");
+                    Logger.Write_Warning($@"[Add-DomainGroupMember] Error finding the group identity '{args.Identity}' : {e.Message}");
                 }
             }
 
@@ -7817,7 +7848,7 @@ namespace SharpView
                     }
                     catch (Exception e)
                     {
-                        Logger.Write_Warning($@"[Set-DomainUserPassword] Error setting password for user '{args.Identity}' : {e}");
+                        Logger.Write_Warning($@"[Set-DomainUserPassword] Error setting password for user '{args.Identity}' : {e.Message}");
                     }
                 }
                 else
@@ -8277,7 +8308,7 @@ namespace SharpView
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Write_Verbose($@"Error accessing share path {Path} : {e}");
+                                    Logger.Write_Verbose($@"Error accessing share path {Path} : {e.Message}");
                                 }
                             }
                             else
